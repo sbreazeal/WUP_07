@@ -57,6 +57,10 @@ basicCC <- ggplot(dd2,aes(x=Sex,y=prcnt*100,fill=result))
 basicCC + geom_bar(stat="identity", position = "dodge")
 ```
 
+The percentage barchart shows that about 35% of females die of Covid 19 in Korea while males are dying at a rate of about 65%, this would suggest that sex is a factor in dying due to Covid 19.
+
+
+
 ```{r}
 barchartGC(~result + Sex,data=kRdata, main ="Frequency Bar Chart")
 ```
@@ -77,7 +81,7 @@ rowPerc(table1)
 colPerc(table1)
 ```
 
-
+The numerical results show that 3 of every hundred males will die of Covid 19 in Korea, as opposed to 1.4 of every hundred females will die due to Covid 19
 
 ## Inferential results 
 
