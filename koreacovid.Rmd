@@ -24,11 +24,14 @@ state of a patient must be died or alive - we adjust that as well
   
 # Question 1 - Is dying independent of sex
 
-
-
+$H_0$: Covid 19 deaths in Korea Jan- May 2020 are unrelated to sex.
+$H_A$: There is a relation between deaths in Korea Jan-May 2020 and sex of the patient.
 
 Table of patients:
 ```{r}
+kRdata$Sex = as.factor(kRdata$Sex)
+kRdata$result= as.factor(kRdata$result)
+
 
 # cross tabulation, patient state by gender
 
@@ -37,6 +40,22 @@ with(kRdata, table(Sex, result))
 ```
 
 ## We create two bar charts - one based on frequency and the other on percent
+
+
+```{r}
+dd2 <- kRdata %>% group_by(result,Sex) %>% summarize(count=n()) %>% mutate(prcnt=count/sum(count))
+
+
+# the group_by followed by summarize(count=n())
+
+basicC <- ggplot(dd2,aes(x=Sex,y=count,fill=result))
+basicC + geom_bar(stat="identity",position="dodge")
+
+#Now for percentage plot
+
+basicCC <- ggplot(dd2,aes(x=Sex,y=prcnt*100,fill=result)) 
+basicCC + geom_bar(stat="identity", position = "dodge")
+```
 
 ```{r}
 barchartGC(~result + Sex,data=kRdata, main ="Frequency Bar Chart")
@@ -52,11 +71,23 @@ barchartGC(~result + Sex,data=kRdata, main ="Frequency Bar Chart")
   
 ## Numerical results
 
+```{r}
+table1 <- xtabs(~result + Sex, data=kRdata)
+rowPerc(table1)
+colPerc(table1)
+```
+
+
 
 ## Inferential results 
 
-
+```{r}
+chisq.test(table1)
+chisqtestGC(table1)
+fisher.test(table1)
+```
 
 
 ## Conclusions
 
+The p-value is 0.001, the odds of a male dying due to Covid 19 in Korea are 2.3:1 compared to females, and the confidence interval does not contain a 1. Due to these findings we would reject the null hypothesis. 
