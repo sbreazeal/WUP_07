@@ -25,6 +25,7 @@ state of a patient must be died or alive - we adjust that as well
 # Question 1 - Is dying independent of sex
 
 $H_0$: Covid 19 deaths in Korea Jan- May 2020 are unrelated to sex.
+
 $H_A$: There is a relation between deaths in Korea Jan-May 2020 and sex of the patient.
 
 Table of patients:
@@ -90,6 +91,9 @@ chisq.test(table1)
 chisqtestGC(table1)
 fisher.test(table1)
 ```
+
+The p-value is a small number which tells us there is a difference in the number of males versus females dying due to Covid 19 in Korea. The odds ration shows that this at 2.3 times more likely that males will die of Covid than females and is further explained with a confidence interval of 1.4-3.9, this does not include 1, therefore there is a difference. 
+
 
 
 ## Conclusions
